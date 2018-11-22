@@ -4,10 +4,7 @@ import com.grokonez.jwtauthentication.model.User;
 import com.grokonez.jwtauthentication.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +21,11 @@ public class UserRestAPIs {
     public ResponseEntity<?> getAllUser() {
         Optional<List<User>> listUsers = Optional.ofNullable(userRepository.findAll());
         return ResponseEntity.ok(listUsers);
+    }
+
+    @DeleteMapping("delete/{id}")
+    public void deleteStudent(@PathVariable long id) {
+        userRepository.deleteById(id);
     }
 
 }
