@@ -3,6 +3,8 @@ package com.grokonez.jwtauthentication.controller;
 import com.grokonez.jwtauthentication.model.User;
 import com.grokonez.jwtauthentication.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -62,6 +64,11 @@ public class UserRestAPIs {
              return ResponseEntity.notFound().build();
          }
          return ResponseEntity.ok(userOne);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<Page<User>> showPage(@PathVariable int page){
+        return ResponseEntity.ok(userRepository.findAll(new PageRequest(page, 4)));
     }
 
 }
